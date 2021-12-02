@@ -6,6 +6,9 @@ const app = express();
 // Connect mongoDB
 connectDB();
 
+//Init Middleware/bodyparser
+app.use(express.json({ extended: false }));
+
 app.get('/', (req, res) => {
   //res.send('<h1>Hello World</h1>');
   res.json({ message: 'Welcome! Task Manager API' });
