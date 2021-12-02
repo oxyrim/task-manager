@@ -10,7 +10,9 @@
   "author": "jmeThukten",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.14"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
