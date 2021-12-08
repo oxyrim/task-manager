@@ -1,12 +1,23 @@
 // CRUD functionality
 const express = require('express');
 const router = express.Router();
+const { body, validationResult } = require('express-validator');
+const auth = require('../middleware/auth');
+const User = require('../models/User');
+const Task = require('../models/Task');
+const { Items } = require('../models/Items');
 
 // @route       GET api/tasks
 // @desc        Get all users tasks
 // @access      Private
-router.get('/', (req, res) => {
-  res.send('Get all tasks');
+router.get('/', auth, async (req, res) => {
+  try {
+    const tasks = await Task.find({ user: req.user.id });
+    res.json({ auth: true, tasks });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Server error');
+  }
 });
 
 // @route       POST api/tasks
