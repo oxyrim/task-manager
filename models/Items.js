@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
 
 const ItemsSchema = mongoose.Schema({
-  name: {
+  item_name: {
+    //Task
     type: String,
     require: true,
   },
+  // type: {
+  //   //ToDO, Doing, Done
+  //   type: String,
+  // },
   due_date: {
     type: Date,
   },
@@ -16,5 +21,5 @@ const ItemsSchema = mongoose.Schema({
 
 //Export model
 const Items = mongoose.model('items', ItemsSchema);
-module.exports.Items;
-module.exports.ItemsSchema;
+exports.Items = Items;
+exports.ItemsSchema = ItemsSchema;

@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const { ItemsSchema } = require('./Items');
 
-const TaskSchema = mongoose.Schema({
+const ListSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
   },
-  type: {
+  list_name: {
     type: String,
     require: true,
   },
@@ -16,4 +16,4 @@ const TaskSchema = mongoose.Schema({
 });
 
 //Export model
-module.exports = mongoose.model('task', TaskSchema);
+module.exports = mongoose.model('list', ListSchema);
