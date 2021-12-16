@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const ItemsSchema = mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
+  },
   item_name: {
     //Task
     type: String,
     require: true,
   },
-  // type: {
-  //   //ToDO, Doing, Done
-  //   type: String,
-  // },
   due_date: {
     type: Date,
   },
