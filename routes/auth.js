@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('config');
+require('dotenv').config();
 const auth = require('../middleware/auth');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
@@ -50,7 +50,7 @@ router.post(
 
         jwt.sign(
           { user: { id: foundUser.id } },
-          config.get('JWT_SECRET'),
+          process.env.JWT_SECRET,
           (error, token) => {
             if (error) throw error;
             res.json({ token });

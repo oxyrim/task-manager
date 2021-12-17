@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('config');
+require('dotenv').config();
 const { body, validationResult } = require('express-validator');
 
 // @route       POST api/users
@@ -51,7 +51,7 @@ router.post(
       //res.send('User save to DB');
       jwt.sign(
         { user: { id: user.id } },
-        config.get('JWT_SECRET'),
+        process.env.JWT_SECRET,
         (error, token) => {
           if (error) throw error;
           res.json({ token });
