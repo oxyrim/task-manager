@@ -1,3 +1,22 @@
+html {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .navbar-nav {
   margin-left: auto;
+}
+
+.button {
+  font-size: 10px;
+}
+.card:hover {
+  background-color: rgba(70, 67, 67, 0.747);
+}
+.badgeBg {
+  color: black;
+  background-color: white;
+}
+.badgeBg:hover {
+  color: white;
+  background-color: gray;
 }

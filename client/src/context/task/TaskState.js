@@ -8,39 +8,67 @@ const TaskState = (props) => {
       {
         id: 1,
         list_name: 'To Do',
-        item_name: 'Clean House',
-        due_date: '2021-12-20',
+        items: [
+          {
+            item_name: 'Cleaning house.',
+            due_date: '2021-12-23',
+          },
+          {
+            item_name: 'Coding Project',
+            due_date: '2021-12-23',
+          },
+          {
+            item_name: 'Send Money',
+            due_date: '2021-12-23',
+          },
+        ],
       },
       {
         id: 2,
-        list_name: 'To Do',
-        item_name: 'Coding Exercise',
-        due_date: '2021-12-22',
+        list_name: 'Doing',
+        items: [
+          {
+            item_name: 'Laundry',
+            due_date: '2021-12-20',
+          },
+          {
+            item_name: 'Cooking',
+            due_date: '2021-12-20',
+          },
+          {
+            item_name: 'Cleaning',
+            due_date: '2021-12-20',
+          },
+        ],
       },
       {
-        id: 3,
-        list_name: 'To Do',
-        item_name: 'Pay Utility Bill',
-        due_date: '2021-12-21',
+        id: 1,
+        list_name: 'Done',
+        items: [
+          {
+            item_name: 'Stocking',
+            due_date: '2021-12-20',
+          },
+          {
+            item_name: 'Paid',
+            due_date: '2021-12-20',
+          },
+          {
+            item_name: 'Studying',
+            due_date: '2021-12-20',
+          },
+        ],
       },
     ],
   };
 
   const [state, dispatch] = useReducer(TaskReducer, initialState);
 
-  // add task
+  // Add task
 
-  //Delete task
-
-  //Set current task
-
-  //clear current task
+  // Delete task
 
   // Update task
-
-  //Filter task
-
-  //Clear filter
 
   return (
     <TaskContext.Provider
