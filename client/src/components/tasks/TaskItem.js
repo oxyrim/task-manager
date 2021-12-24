@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DateBadge from './DateBadge';
 import TaskForm from './TaskForm';
+import TaskContext from '../../context/task/taskContext';
 
 const TaskItem = ({ task }) => {
-  const { list_name, items } = task;
+  const taskContext = useContext(TaskContext);
+  const { id, list_name, items } = task;
 
-  const onClick = () => {};
+  const onDelete = (item) => {
+    const deleteItem = {
+      list_id: id,
+      item_id: item,
+    };
+    taskContext.deleteTaskItem(deleteItem);
+  };
   return (
     <Card text='white' className='p-1 card' style={{ width: '18rem' }}>
       <Card.Title border='light' style={{ color: 'white' }}>
@@ -21,10 +29,13 @@ const TaskItem = ({ task }) => {
                 className='far fa-edit p-1 card_icon'
                 style={{ float: 'right' }}
               />{' '}
-              <i
-                className='fas fa-trash p-1 card_icon'
-                style={{ float: 'right' }}
-              />
+              <span>
+                <i
+                  className='fas fa-trash p-1 card_icon'
+                  style={{ float: 'right' }}
+                  onClick={() => onDelete(item.id)}
+                />
+              </span>
               {item.item_name && (
                 <Card.Text className='m-0'>{item.item_name}</Card.Text>
               )}

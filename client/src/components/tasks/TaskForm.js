@@ -26,6 +26,11 @@ const TaskForm = ({ listName }) => {
       item,
     };
     taskContext.addTask(task);
+    setItem({
+      item_name: '',
+      due_date: '',
+    });
+    listName = '';
   };
 
   return (

@@ -9,7 +9,7 @@ const TaskCard = () => {
 
   return (
     <Container>
-      <Row className='mt-3 mx-0'>
+      <Row className='mt-3 mb-5 mx-0'>
         {tasks.map((task) => {
           return (
             <Col>

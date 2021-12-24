@@ -31,14 +31,17 @@ const TaskState = (props) => {
         list_name: 'Doing',
         items: [
           {
+            id: 4,
             item_name: 'Laundry',
             due_date: '2021-12-20',
           },
           {
+            id: 5,
             item_name: 'Cooking',
             due_date: '2021-12-20',
           },
           {
+            id: 6,
             item_name: 'Cleaning',
             due_date: '2021-12-20',
           },
@@ -49,14 +52,17 @@ const TaskState = (props) => {
         list_name: 'Done',
         items: [
           {
+            id: 7,
             item_name: 'Stocking',
             due_date: '2021-12-20',
           },
           {
+            id: 8,
             item_name: 'Paid',
             due_date: '2021-12-20',
           },
           {
+            id: 9,
             item_name: 'Studying',
             due_date: '2021-12-20',
           },
@@ -69,11 +75,14 @@ const TaskState = (props) => {
 
   // Add task
   const addTask = (task) => {
-    task.item.id = 5;
+    task.item.id = Math.floor(Math.random() * 100);
     dispatch({ type: 'ADD_TASK', payload: task });
   };
 
   // Delete task
+  const deleteTaskItem = (deleteItem) => {
+    dispatch({ type: 'DELETE_TASK', payload: deleteItem });
+  };
 
   // Update task
 
@@ -82,6 +91,7 @@ const TaskState = (props) => {
       value={{
         tasks: state.tasks,
         addTask,
+        deleteTaskItem,
       }}
     >
       {props.children}
