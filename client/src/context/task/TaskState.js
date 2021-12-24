@@ -10,14 +10,17 @@ const TaskState = (props) => {
         list_name: 'To Do',
         items: [
           {
+            id: 1,
             item_name: 'Cleaning house.',
             due_date: '2021-12-23',
           },
           {
+            id: 2,
             item_name: 'Coding Project',
             due_date: '2021-12-23',
           },
           {
+            id: 3,
             item_name: 'Send Money',
             due_date: '2021-12-23',
           },
@@ -42,7 +45,7 @@ const TaskState = (props) => {
         ],
       },
       {
-        id: 1,
+        id: 3,
         list_name: 'Done',
         items: [
           {
@@ -65,6 +68,10 @@ const TaskState = (props) => {
   const [state, dispatch] = useReducer(TaskReducer, initialState);
 
   // Add task
+  const addTask = (task) => {
+    task.item.id = 5;
+    dispatch({ type: 'ADD_TASK', payload: task });
+  };
 
   // Delete task
 
@@ -74,6 +81,7 @@ const TaskState = (props) => {
     <TaskContext.Provider
       value={{
         tasks: state.tasks,
+        addTask,
       }}
     >
       {props.children}

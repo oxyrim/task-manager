@@ -7,7 +7,7 @@ const DateBadge = ({ dueDate }) => {
   const formateDate = date.toString().split(' ');
 
   return (
-    <Badge bg='secondary'>
+    <Badge style={{ backgroundColor: 'red !important' }}>
       <i className='far fa-clock' /> {formateDate[1] + ' ' + formateDate[2]}
     </Badge>
   );

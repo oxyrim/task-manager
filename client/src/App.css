@@ -2,21 +2,40 @@ html {
   font-family: 'Montserrat', sans-serif;
 }
 
+body {
+  background: #f1f5f8;
+  background-image: radial-gradient(#bfc0c1 7.2%, transparent 0);
+  background-size: 25px 25px;
+}
+
 .navbar-nav {
   margin-left: auto;
 }
 
+.card {
+  background-color: rgba(48, 46, 46, 0.514);
+}
+
+.card:hover {
+  border-color: rgb(0, 0, 0);
+}
+
+.card_icon {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.card_icon:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.badge {
+  background-color: rgba(128, 128, 128, 0) !important;
+}
+
+.badge:hover {
+  background-color: rgba(128, 128, 128, 0.6) !important;
+}
+
 .button {
   font-size: 10px;
-}
-.card:hover {
-  background-color: rgba(70, 67, 67, 0.747);
-}
-.badgeBg {
-  color: black;
-  background-color: white;
-}
-.badgeBg:hover {
-  color: white;
-  background-color: gray;
 }
