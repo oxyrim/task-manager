@@ -18,6 +18,19 @@ const TaskReducer = (state, action) => {
         //],
       };
 
+    case 'UPDATE_TASK':
+      const updateTaskItem = [...state.tasks].find(
+        (task) => task.id === action.payload.list_id
+      );
+      const updateItem = updateTaskItem.items.map((item) => {
+        return item.id === action.payload.task.id ? action.payload.task : item;
+      });
+
+      updateTaskItem.items = updateItem;
+      return {
+        ...state,
+      };
+
     case 'DELETE_TASK':
       const deleteTask = [...state.tasks].find(
         (task) => task.id === action.payload.list_id
@@ -29,6 +42,19 @@ const TaskReducer = (state, action) => {
       return {
         ...state,
       };
+
+    case 'SET_CURRENT':
+      return {
+        ...state,
+        current: action.payload.item,
+      };
+
+    case 'CLEAR_CURRENT':
+      return {
+        ...state,
+        current: null,
+      };
+
     default:
       return state;
   }

@@ -69,6 +69,7 @@ const TaskState = (props) => {
         ],
       },
     ],
+    current: null,
   };
 
   const [state, dispatch] = useReducer(TaskReducer, initialState);
@@ -79,9 +80,24 @@ const TaskState = (props) => {
     dispatch({ type: 'ADD_TASK', payload: task });
   };
 
+  // Update Task
+  const updateTask = (item) => {
+    dispatch({ type: 'UPDATE_TASK', payload: item });
+  };
+
   // Delete task
   const deleteTaskItem = (deleteItem) => {
     dispatch({ type: 'DELETE_TASK', payload: deleteItem });
+  };
+
+  //Set Current Task Item
+  const setCurrentTaskItem = (item) => {
+    dispatch({ type: 'SET_CURRENT', payload: { item } });
+  };
+
+  // Clear Current Task Item
+  const clearCurrentTaskItem = () => {
+    dispatch({ type: 'CLEAR_CURRENT' });
   };
 
   // Update task
@@ -90,8 +106,12 @@ const TaskState = (props) => {
     <TaskContext.Provider
       value={{
         tasks: state.tasks,
+        current: state.current,
         addTask,
+        updateTask,
         deleteTaskItem,
+        setCurrentTaskItem,
+        clearCurrentTaskItem,
       }}
     >
       {props.children}

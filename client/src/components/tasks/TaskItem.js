@@ -9,47 +9,62 @@ const TaskItem = ({ task }) => {
   const taskContext = useContext(TaskContext);
   const { id, list_name, items } = task;
 
+  const { deleteTaskItem, setCurrentTaskItem, clearCurrentTaskItem } =
+    taskContext;
+
   const onDelete = (item) => {
     const deleteItem = {
       list_id: id,
       item_id: item,
     };
-    taskContext.deleteTaskItem(deleteItem);
+    deleteTaskItem(deleteItem);
+    clearCurrentTaskItem();
   };
+
+  const onClick = (item) => {
+    setCurrentTaskItem({
+      list_id: id,
+      task: item,
+    });
+  };
+
   return (
-    <Card text='white' className='p-1 card' style={{ width: '18rem' }}>
-      <Card.Title border='light' style={{ color: 'white' }}>
-        {list_name}
-      </Card.Title>
-      {items.map((item) => {
-        return (
-          <Card className='mt-1'>
-            <Card.Body className='p-1'>
-              <i
-                className='far fa-edit p-1 card_icon'
-                style={{ float: 'right' }}
-              />{' '}
-              <span>
+    <div>
+      <Card text='white' className='mb-5 p-1 card' style={{ width: '18rem' }}>
+        <Card.Title border='light' style={{ color: 'white' }}>
+          {list_name}
+        </Card.Title>
+        {items.map((item) => {
+          return (
+            <Card className='mt-1'>
+              <Card.Body className='p-1'>
                 <i
-                  className='fas fa-trash p-1 card_icon'
+                  className='far fa-edit p-1 card_icon'
                   style={{ float: 'right' }}
-                  onClick={() => onDelete(item.id)}
-                />
-              </span>
-              {item.item_name && (
-                <Card.Text className='m-0'>{item.item_name}</Card.Text>
-              )}
-              <DateBadge dueDate={item.due_date} />
-            </Card.Body>
-          </Card>
-        );
-      })}
-      <Card className='mt-1'>
-        <Card.Body className='p-1'>
-          <TaskForm listName={list_name} />
-        </Card.Body>
+                  onClick={() => onClick(item)}
+                />{' '}
+                <span>
+                  <i
+                    className='fas fa-trash p-1 card_icon'
+                    style={{ float: 'right' }}
+                    onClick={() => onDelete(item.id)}
+                  />
+                </span>
+                {item.item_name && (
+                  <Card.Text className='m-0'>{item.item_name}</Card.Text>
+                )}
+                <DateBadge dueDate={item.due_date} />
+              </Card.Body>
+            </Card>
+          );
+        })}
+        <Card className='mt-1'>
+          <Card.Body className='p-1'>
+            <TaskForm listName={list_name} />
+          </Card.Body>
+        </Card>
       </Card>
-    </Card>
+    </div>
   );
 };
 
