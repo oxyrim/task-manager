@@ -1,11 +1,7 @@
-html {
-  font-family: 'Montserrat', sans-serif;
-}
-
-body {
-  background: #f1f5f8;
-  background-image: radial-gradient(#bfc0c1 7.2%, transparent 0);
-  background-size: 25px 25px;
+.item {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .navbar-nav {
@@ -53,4 +49,10 @@ body {
   z-index: 10040;
   overflow: auto;
   overflow-y: auto;
+} */
+/* 
+.droppable-col {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 } */

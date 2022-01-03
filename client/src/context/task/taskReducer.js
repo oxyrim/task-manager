@@ -1,12 +1,22 @@
 const TaskReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TASK':
-      const taskObj = [...state.tasks];
       // Find the task that matches the task which send add request.
-      const findTask = taskObj.find(
+      const findTask = [...state.tasks].find(
         (task) => task.list_name === action.payload.list_name
       );
-      findTask.items.push(action.payload.item);
+      if (action.payload.index !== undefined) {
+        findTask.items.splice(action.payload.index, 0, action.payload.item);
+      } else {
+        findTask.items.push(action.payload.item);
+      }
+      //findTask.items.push(action.payload.item);
+      // const task = findTask.items.filter(
+      //   (item) => item.id !== action.payload.item_id
+      // );
+      // findTask.items = task;
+      // console.log(findTask);
+
       return {
         ...state,
         // tasks: [
