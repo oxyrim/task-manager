@@ -92,7 +92,10 @@ router.post(
 // @desc        Update task
 // @access      Private
 router.put('/:list_id/:item_id?', auth, async (req, res) => {
-  const { list_name, item_name, due_date } = req.body;
+  const {
+    list_name,
+    task: { item_name, due_date },
+  } = req.body;
 
   try {
     let list = await List.findById(req.params.list_id);

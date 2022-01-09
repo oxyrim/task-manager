@@ -101,7 +101,6 @@ const TaskState = (props) => {
 
   // Add task
   const addTask = async (task) => {
-    console.log(task);
     //Create header
     const config = {
       headers: {
@@ -125,8 +124,31 @@ const TaskState = (props) => {
   };
 
   // Update Task
-  const updateTask = (item) => {
-    dispatch({ type: UPDATE_TASK, payload: item });
+  const updateTask = async (item) => {
+    console.log(item);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await axios.put(
+        `/api/tasks/${item.list_id}/${item.task._id}`,
+        item,
+        config
+      );
+      console.log('res.data: ', res.data);
+      dispatch({
+        type: UPDATE_TASK,
+        payload: res.data,
+      });
+      console.log(state.tasks);
+    } catch (error) {
+      dispatch({
+        type: TASK_ERROR,
+        payload: error.response.message,
+      });
+    }
   };
 
   // Delete task

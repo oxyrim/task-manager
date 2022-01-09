@@ -18,7 +18,7 @@ const TaskReducer = (state, action) => {
         loading: false,
       };
     case ADD_TASK:
-      console.log(action.payload.items);
+      //If its new list
       if (action.payload.items.length === 0) {
         return {
           ...state,
@@ -26,34 +26,23 @@ const TaskReducer = (state, action) => {
           loading: false,
         };
       }
-      // Find the task that matches the task which send add request.
+      // If adding item inside list
+      // Find the task that matches the list which send add request.
       const findTask = [...state.tasks].find(
         (task) => task.list_name === action.payload.list_name
       );
       findTask.items = action.payload.items;
-      console.log('State', state.tasks);
       return {
         ...state,
         //tasks: [...state.tasks, findTask],
         loading: false,
-        // tasks: [
-        //   // if the task is found find the same task in previous state and replace with new task that has new item added
-        //   ...state.tasks.map((task) => {
-        //     const item = task.id === findTask.id ? findTask : task;
-        //     return item ? item : task;
-        //   },
-        //],)
       };
 
     case UPDATE_TASK:
       const updateTaskItem = [...state.tasks].find(
-        (task) => task.id === action.payload.list_id
+        (task) => task._id === action.payload._id
       );
-      const updateItem = updateTaskItem.items.map((item) => {
-        return item.id === action.payload.task.id ? action.payload.task : item;
-      });
-
-      updateTaskItem.items = updateItem;
+      updateTaskItem.items = action.payload.items;
       return {
         ...state,
         loading: false,

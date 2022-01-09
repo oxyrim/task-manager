@@ -14,6 +14,10 @@ const EditModal = () => {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
+    const date = new Date(`${current.task.due_date}`)
+      .toISOString()
+      .split('T')[0];
+    current.task.due_date = date;
     if (current !== null) {
       console.log(current.task);
       setItem(current.task);
