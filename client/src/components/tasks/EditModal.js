@@ -15,6 +15,7 @@ const EditModal = () => {
 
   useEffect(() => {
     if (current !== null) {
+      console.log(current.task);
       setItem(current.task);
     } else {
       setItem({

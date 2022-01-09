@@ -1,21 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import TaskContext from '../../context/task/taskContext';
 import TaskItem from './TaskItem';
 import EditModal from './EditModal';
 import { DragDropContext } from 'react-beautiful-dnd';
+import AddList from './AddList';
+import Spinner from '../layouts/Spinner';
 
 const TaskCard = () => {
   const taskContext = useContext(TaskContext);
-  const { tasks, current, deleteTaskItem, addTask } = taskContext;
+  const { tasks, current, deleteTaskItem, addTask, getTask, loading } =
+    taskContext;
+
+  useEffect(() => {
+    getTask();
+  }, []);
 
   const handleDragEnd = ({ destination, source }) => {
-    //if dragged outside the draggable
+    console.log('destination', destination);
+    console.log('source', source);
+    //If dragged outside the draggable
     if (!destination) {
       console.log('Not draggable');
       return;
     }
 
+    //Not changing the position or index in the same card
     if (destination.droppableId === source.droppableId) {
       console.log('dragged to same place');
       return;
@@ -40,12 +50,16 @@ const TaskCard = () => {
       list_name: destination.droppableId,
       index: destination.index,
       item: itemCopy,
+      user_id: findList.user,
     });
     deleteTaskItem({
-      list_id: findList.id,
-      item_id: itemCopy.id,
+      list_id: findList._id,
+      item_id: itemCopy._id,
     });
   };
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <Container>
@@ -59,6 +73,10 @@ const TaskCard = () => {
               </Col>
             );
           })}
+          <Col>
+            <AddList />
+          </Col>
+          {/* </HorizontalScroll> */}
         </Row>
       </DragDropContext>
     </Container>

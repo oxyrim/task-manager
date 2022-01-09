@@ -29,11 +29,13 @@ router.post(
     const { name, email, password } = req.body;
 
     try {
+      //Check if the user already exist
       let user = await User.findOne({ email });
+      //If user found
       if (user) {
         return res.status(400).json({ message: 'User already exist.' });
       }
-
+      //If user not found create a new user
       user = new User({
         name,
         email,
@@ -41,14 +43,17 @@ router.post(
       });
 
       const saltRounds = 10;
-
+      //hash the password
       user.password = await bcrypt.hash(password, saltRounds);
+
+      //Save new user in DB
       await user.save((err) => {
         if (err) {
           throw err;
         }
       });
-      //res.send('User save to DB');
+
+      //And create token and respond with token
       jwt.sign(
         { user: { id: user.id } },
         process.env.JWT_SECRET,

@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import TaskContext from '../../context/task/taskContext';
+import { Card } from 'react-bootstrap';
 
-const TaskForm = ({ listName }) => {
+const TaskForm = ({ listName, user_id }) => {
   const taskContext = useContext(TaskContext);
 
   const [item, setItem] = useState({
@@ -23,7 +24,9 @@ const TaskForm = ({ listName }) => {
     event.preventDefault();
     const task = {
       list_name,
+      user_id,
       item,
+      index: null,
     };
     taskContext.addTask(task);
     setItem({
@@ -34,17 +37,18 @@ const TaskForm = ({ listName }) => {
   };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Form.Control
-        className='mt-1'
-        type='text'
-        name='item_name'
-        placeholder='Add task'
-        value={item_name}
-        onChange={onChange}
-      />
-      <Row>
-        <Col>
+    <Card className='mt-1'>
+      <Card.Body className='p-1'>
+        <Form onSubmit={onSubmit}>
+          <Form.Control
+            className='mt-1'
+            type='text'
+            name='item_name'
+            placeholder='Add task'
+            value={item_name}
+            onChange={onChange}
+          />
+
           <Form.Control
             className='mt-1'
             type='date'
@@ -52,12 +56,11 @@ const TaskForm = ({ listName }) => {
             value={due_date}
             onChange={onChange}
           />
-        </Col>
-        <Col>
+
           <Form.Control className='mt-1' type='submit' value='Add Task' />
-        </Col>
-      </Row>
-    </Form>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 

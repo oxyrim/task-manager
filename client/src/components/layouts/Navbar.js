@@ -1,8 +1,39 @@
-import React from 'react';
+import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import AuthContext from '../../context/auth/authContext';
+import TaskContext from '../../context/task/taskContext';
 
 const NavigationBar = ({ title, icon }) => {
+  const taskContext = useContext(TaskContext);
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, logout, user } = authContext;
+  const { clearTask } = taskContext;
+
+  const onLogout = () => {
+    logout();
+    clearTask();
+  };
+
+  const authLinks = (
+    <Fragment>
+      <Nav.Link href='/'>Home</Nav.Link>
+      <Nav.Link href='/about'>About</Nav.Link>
+      <Nav.Link>{user && user.name}</Nav.Link>
+      <Nav.Link onClick={onLogout}>
+        <i className='fas fa-sign-out-alt'></i> Logout
+      </Nav.Link>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <Nav.Link href='/register'>Register</Nav.Link>
+      <Nav.Link href='/login'>Login</Nav.Link>
+    </Fragment>
+  );
+
   return (
     <Navbar bg='dark' sticky='top' variant='dark'>
       <Container>
@@ -12,8 +43,7 @@ const NavigationBar = ({ title, icon }) => {
           </h3>
         </Navbar.Brand>
         <Nav className='navbar-nav'>
-          <Nav.Link href='/home'>Home</Nav.Link>
-          <Nav.Link href='/about'>About</Nav.Link>
+          {isAuthenticated ? authLinks : guestLinks}
         </Nav>
       </Container>
     </Navbar>

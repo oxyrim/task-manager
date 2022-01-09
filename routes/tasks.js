@@ -25,39 +25,62 @@ router.get('/', auth, async (req, res) => {
 // @access      Private
 router.post(
   '/',
-  [auth, [body('list_name').notEmpty(), body('item_name').notEmpty()]],
+  [
+    auth,
+    [
+      body('list_name').notEmpty(),
+      //body('item_name').notEmpty()
+    ],
+  ],
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ add: false, message: errors.array() });
     }
 
-    const { due_date, item_name, list_name } = req.body;
+    const { item: update_item, list_name, index, user_id } = req.body;
+    // { due_date, item_name } = item;
+    console.log(user_id);
 
-    List.findOne({ list_name }, (error, foundList) => {
-      if (!error) {
-        if (!foundList) {
-          const list = new List({
-            user: req.user.id,
-            list_name,
-          });
-          list.save();
-          return res.json(list);
-        } else {
-          //res.json({ message: 'List already exists' });
-          const item = new Items({
-            user: req.user.id,
-            item_name,
-            due_date,
-          });
-          foundList.items.push(item);
-          foundList.save();
-          //res.json(foundList);
-          res.json(item);
-        }
-      }
-    });
     try {
+      List.findOne({ list_name, user_id: null }, (error, foundList) => {
+        if (!error) {
+          if (!foundList) {
+            const list = new List({
+              user: req.user.id,
+              list_name,
+            });
+            list.save();
+            return res.json(list);
+          }
+        }
+      });
+      List.findOne({ list_name, user_id }, (error, foundList) => {
+        if (!error) {
+          if (foundList !== null) {
+            if (index !== null) {
+              const item = new Items({
+                user: req.user.id,
+                item_name: update_item.item_name,
+                due_date: update_item.due_date,
+              });
+              foundList.items.splice(index, 0, item);
+              foundList.save();
+              res.json(foundList);
+            } else {
+              const { due_date, item_name } = req.body.item;
+              const item = new Items({
+                user: req.user.id,
+                item_name,
+                due_date,
+              });
+              foundList.items.push(item);
+              foundList.save();
+              res.json(foundList);
+            }
+          }
+        }
+      });
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ add: false, message: 'error' });
@@ -141,7 +164,7 @@ router.delete('/:list_id/:item_id', auth, async (req, res) => {
       { $pull: { items: { _id: req.params.item_id } } }
     );
 
-    res.status(500).json({ message: 'Item removed.' });
+    res.status(200).json({ message: 'Item removed.' });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ add: false, message: 'error' });

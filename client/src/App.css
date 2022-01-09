@@ -1,3 +1,14 @@
+body {
+  background: #f1f5f8;
+  background-image: radial-gradient(#bfc0c1 7.2%, transparent 0);
+  background-size: 25px 25px;
+}
+
+.home {
+  display: flex;
+  overflow-x: auto;
+}
+
 .item {
   display: flex;
   width: 100%;
@@ -40,19 +51,26 @@
   font-size: 10px;
 }
 
-/* .modal {
-  position: absolute;
-  top: 100px;
-  right: 100px;
-  bottom: 0;
-  left: 0;
-  z-index: 10040;
-  overflow: auto;
-  overflow-y: auto;
-} */
-/* 
-.droppable-col {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-} */
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.button:hover {
+  background-color: rgba(211, 105, 34, 0.616);
+}
